@@ -18,7 +18,7 @@ html, body {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   overflow: hidden;
   background: radial-gradient(ellipse at 50% 0%, #0d0d2b 0%, #05050f 70%);
 }
@@ -88,53 +88,32 @@ html, body {
   pointer-events: none;
 }
 
-/* ===== FLOATING ICONS ===== */
-.floating-icon {
-  position: absolute;
-  opacity: 0;
-  transition: opacity 0.8s ease;
-  animation: floatOrbit var(--dur, 9s) ease-in-out infinite;
-  filter: drop-shadow(0 0 12px currentColor);
-  will-change: transform, opacity;
+/* ===== SPLINE 3D SCENE ===== */
+.spline-wrapper {
+  position: relative;
+  z-index: 5;
+  width: 55%;
+  height: 100vh;
+  flex-shrink: 0;
 }
 
-.floating-icon.visible {
-  opacity: 1;
-}
-
-@keyframes floatOrbit {
-  0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
-  20%  { transform: translate(18px, -25px) rotate(8deg) scale(1.04); }
-  40%  { transform: translate(-15px, -40px) rotate(-5deg) scale(0.97); }
-  60%  { transform: translate(25px, -18px) rotate(10deg) scale(1.06); }
-  80%  { transform: translate(-10px, 12px) rotate(-3deg) scale(0.98); }
-  100% { transform: translate(0, 0) rotate(0deg) scale(1); }
-}
-
-/* Give each icon a slightly unique motion */
-.floating-icon:nth-child(odd) {
-  animation-name: floatOrbitAlt;
-}
-
-@keyframes floatOrbitAlt {
-  0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
-  25%  { transform: translate(-20px, -30px) rotate(-8deg) scale(1.05); }
-  50%  { transform: translate(15px, -50px) rotate(6deg) scale(0.96); }
-  75%  { transform: translate(30px, -15px) rotate(-10deg) scale(1.07); }
-  100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+.spline-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 /* ===== HERO CONTENT ===== */
 .hero-content {
   position: relative;
   z-index: 10;
-  text-align: center;
-  max-width: 760px;
-  padding: 0 24px;
+  text-align: left;
+  max-width: 560px;
+  padding: 0 0 0 7vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 28px;
+  flex-shrink: 0;
 }
 
 /* Badge */
@@ -340,18 +319,44 @@ html, body {
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 640px) {
+@media (max-width: 900px) {
+  .hero-section {
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .spline-wrapper {
+    width: 100%;
+    height: 50vh;
+  }
+
+  .hero-content {
+    text-align: center;
+    align-items: center;
+    padding: 40px 24px 0;
+    max-width: 100%;
+  }
+
+  .hero-subtitle br {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
   .hero-stats {
-    gap: 20px;
-    padding: 16px 24px;
+    gap: 16px;
+    padding: 14px 20px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   .stat-number {
     font-size: 20px;
   }
-  .hero-subtitle br {
+  .stat-divider {
     display: none;
   }
-  .floating-icon {
-    transform: scale(0.7);
+  .spline-wrapper {
+    height: 45vh;
   }
 }
